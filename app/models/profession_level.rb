@@ -1,0 +1,2 @@
+class ProfessionLevel < ApplicationRecord
+end

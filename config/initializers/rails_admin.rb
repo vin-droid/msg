@@ -22,12 +22,20 @@ RailsAdmin.config do |config|
   # Model
   config.included_models = %w[ User Profession State City DataSheet]
 
-  config.model DataSheet do 
-    list do
-      
+  config.model "DataSheet" do 
+    edit do
+      field :excel_file, :active_storage do 
+        
+      end
+      configure :admin do
+        visible false
+      end
+      field :admin_id, :hidden do
+        default_value do
+          bindings[:view]._current_user.id
+        end
+      end
     end
-
-    
   end
 
   ## == Cancan ==
