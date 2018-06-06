@@ -12,21 +12,18 @@ class DataSheet < ApplicationRecord
 
   protected
   def create_user
-  	binding.pry
   	worksheet = {}
-  	excel_file.open do |file|
-  		worksheet = XlsxReader.open(file.path)
-  		file.close
-  	end
+  	file_path = LocalFileUploader.new(excel_file.blob).save_file
+  	worksheet = XlsxReader.open(file_path)
   	worksheet.read_xlsx
 
   	# save user, profession, profession_level, profession_area
   	
   	header,content = worksheet.content_in('hash', ["Functional Area","Area of Specialization","Course(Highest Education)"])
-  	
-  	Profession.import content["Functional Area"], on_duplicate_key_ignore: true  
-  	ProfessionArea.import content["Area of Specialization"], on_duplicate_key_ignore: true  
-  	ProfessionLevel.import content["Course(Highest Education)"], on_duplicate_key_ignore: true  
+  	binding.pry
+  	Profession.import ["field_name"], content["Functional Area"], on_duplicate_key_ignore: true  
+  	ProfessionArea.import ["name"], content["Area of Specialization"], on_duplicate_key_ignore: true  
+  	ProfessionLevel.import ["name"], content["Course(Highest Education)"], on_duplicate_key_ignore: true  
   	
 
 

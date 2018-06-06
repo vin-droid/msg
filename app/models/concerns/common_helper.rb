@@ -12,20 +12,24 @@ module CommonHelper
 	class ::SimpleXlsxReader::Document
 		attr_accessor :content, :header
 		def read_xlsx()
-			self.header = sheets.first.rows.shift
-			self.content = sheets.first.rows
+			@header = sheets.first.rows.shift
+			@content = sheets.first.rows
 			self
 		end
 
 		def content_in(format = nil, columns = [])
-			# new_header = columns.present? ? (self.header & columns.to_a) : self.header
+			new_header = columns.present? ? (self.header & columns.to_a) : self.header
 			# new_header.map { |header| columns.include?(header)}
+			# binding.pry
 			case format
 			when 'hash'
 				content_in_hash = {}
-				new_header.each_with_index do |key, index|
-					content_in_hash[key] = self.content.map do |row|
-						row[index]
+				self.content.each_with_index do |row, index1|
+					next unless row.present?
+					header.each_with_index do |key, index2|
+						next unless row[index2].present?
+						content_in_hash[key] = [] if content_in_hash[key].blank?
+						content_in_hash[key].push([row[index2]])
 					end
 				end
 				content = content_in_hash
@@ -43,5 +47,24 @@ module CommonHelper
 			end
 			[new_header, content]
 		end
+	end
+
+
+	class LocalFileUploader
+ 		include ActiveStorage::Downloading
+ 		attr_reader :blob
+ 		attr_accessor :filepath
+
+	    def initialize(blob)
+	      @blob = blob
+	      @filepath = "#{Rails.root}/#{blob.filename}"
+	    end
+
+	    def save_file
+	      download_blob_to_tempfile do |file|
+	        FileUtils.mv(file.path, @filepath)
+	      end
+	      @filepath
+	    end
 	end
 end
