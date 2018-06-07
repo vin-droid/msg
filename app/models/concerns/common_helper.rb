@@ -28,7 +28,7 @@ module CommonHelper
 					next unless row.present?
 					header.each_with_index do |key, index2|
 						next unless row[index2].present?
-						content_in_hash[key] = [] if content_in_hash[key].blank?
+						content_in_hash[key] = [] unless content_in_hash[key].present?
 						content_in_hash[key].push([row[index2]])
 					end
 				end
@@ -36,11 +36,21 @@ module CommonHelper
 			when 'array'
 				content_in_array = []
 				self.content.each do |row|
-					new_row = []
+					new_row = {}
 					new_header.each_with_index do |key, index|
-						new_row.push({"#{key}": row[index] })
+						key = key.to_s.downcase.parameterize.underscore
+						next unless USER_FIELD.include?(key)
+						if key.eql?("highest_education")
+							new_row["#{key}".to_sym] = HIGHEST_EDUCATION[row[index]]
+						elsif key.eql?("gender")
+							new_row["#{key}".to_sym] = GENDER[row[index].to_sym]
+						elsif key.eql?("mobile")
+							new_row["#{key}".to_sym] = row[index].to_i.to_s
+						else
+							new_row["#{key}".to_sym] = row[index].to_s
+						end
 					end
-					content_in_array.push(new_row)
+					content_in_array.push([new_row])
 				end
 				content = content_in_array
 			else

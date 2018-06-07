@@ -67,24 +67,21 @@ ActiveRecord::Schema.define(version: 2018_05_31_021809) do
   end
 
   create_table "profession_areas", force: :cascade do |t|
-    t.string "name", default: "", null: false
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_profession_areas_on_name", unique: true
   end
 
   create_table "profession_levels", force: :cascade do |t|
-    t.string "name", default: "", null: false
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_profession_levels_on_name", unique: true
   end
 
   create_table "professions", force: :cascade do |t|
-    t.string "field_name", default: "", null: false
+    t.string "field_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["field_name"], name: "index_professions_on_field_name", unique: true
   end
 
   create_table "states", force: :cascade do |t|
@@ -102,12 +99,18 @@ ActiveRecord::Schema.define(version: 2018_05_31_021809) do
     t.integer "highest_education"
     t.string "salary"
     t.string "address"
-    t.integer "city_id"
-    t.integer "state_id"
-    t.integer "profession_id"
+    t.bigint "city_id"
+    t.bigint "state_id"
+    t.bigint "profession_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["city_id"], name: "index_users_on_city_id"
+    t.index ["profession_id"], name: "index_users_on_profession_id"
+    t.index ["state_id"], name: "index_users_on_state_id"
   end
 
   add_foreign_key "data_sheets", "admins"
+  add_foreign_key "users", "cities"
+  add_foreign_key "users", "professions"
+  add_foreign_key "users", "states"
 end
