@@ -99,18 +99,12 @@ ActiveRecord::Schema.define(version: 2018_05_31_021809) do
     t.integer "highest_education"
     t.string "salary"
     t.string "address"
-    t.bigint "city_id"
-    t.bigint "state_id"
-    t.bigint "profession_id"
+    t.integer "city_id"
+    t.integer "state_id"
+    t.integer "profession_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["city_id"], name: "index_users_on_city_id"
-    t.index ["profession_id"], name: "index_users_on_profession_id"
-    t.index ["state_id"], name: "index_users_on_state_id"
   end
 
   add_foreign_key "data_sheets", "admins"
-  add_foreign_key "users", "cities"
-  add_foreign_key "users", "professions"
-  add_foreign_key "users", "states"
 end

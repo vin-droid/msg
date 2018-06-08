@@ -39,16 +39,15 @@ class DataSheet < ApplicationRecord
   	file_path = LocalFileUploader.new(excel_file.blob).save_file
   	worksheet = XlsxReader.open(file_path)
   	worksheet.read_xlsx
-binding.pry
   	########### Save user basic details
 		header,content = worksheet.content_in('array')
 		# User.delay.save_user(content)
 		ApplicationRecord.transaction do
 			# MOdify Hash and Save User
-			content.in_groups_of(1000).each do |group_data|
+			# content.in_groups_of(1000).each do |group_data|
 
-			User.import USER_FIELD, [content.first], on_duplicate_key_ignore: true
-		end
+			User.import USER_FIELD, content, on_duplicate_key_ignore: true, validate: false
+		# end
 		end
 
   	########### Pending

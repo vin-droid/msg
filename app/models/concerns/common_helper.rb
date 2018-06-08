@@ -21,6 +21,7 @@ module CommonHelper
 			new_header = columns.present? ? (self.header & columns.to_a) : self.header
 			# new_header.map { |header| columns.include?(header)}
 			# binding.pry
+			professions = Profession.pluck(:field_name, :id).to_h
 			case format
 			when 'hash'
 				content_in_hash = {}
@@ -41,16 +42,19 @@ module CommonHelper
 						key = key.to_s.downcase.parameterize.underscore
 						next unless USER_FIELD.include?(key)
 						if key.eql?("highest_education")
-							new_row["#{key}".to_sym] = HIGHEST_EDUCATION[row[index]]
+							new_row["#{key}"] = HIGHEST_EDUCATION[row[index]]
 						elsif key.eql?("gender")
-							new_row["#{key}".to_sym] = GENDER[row[index].to_sym]
+							new_row["#{key}"] = GENDER[row[index].to_sym]
 						elsif key.eql?("mobile")
-							new_row["#{key}".to_sym] = row[index].to_i.to_s
+							new_row["#{key}"] = row[index].to_i.to_s
 						else
-							new_row["#{key}".to_sym] = row[index].to_s
+							new_row["#{key}"] = row[index].to_s
 						end
+						new_row["city_id"] = 1
+						new_row["state_id"] = 2
+						new_row["profession_id"] = professions[row[index]] || 2
 					end
-					content_in_array.push([new_row])
+					content_in_array.push(new_row)
 				end
 				content = content_in_array
 			else

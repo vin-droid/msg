@@ -12,9 +12,6 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.integer :city_id
       t.integer :state_id
       t.integer :profession_id
-      t.references :city, foreign_key: true
-      t.references :state, foreign_key: true
-      t.references :profession, foreign_key: true
 
       t.timestamps
     end
