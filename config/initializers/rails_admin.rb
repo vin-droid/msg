@@ -20,7 +20,7 @@ RailsAdmin.config do |config|
 
 
   # Model
-  config.included_models = %w[ User Profession State City DataSheet]
+  config.included_models = %w[ User Profession DataSheet]
 
   config.model "DataSheet" do 
     edit do
@@ -35,6 +35,12 @@ RailsAdmin.config do |config|
           bindings[:view]._current_user.id
         end
       end
+    end
+  end
+
+  config.model "User" do
+    list do
+      items_per_page 400
     end
   end
 

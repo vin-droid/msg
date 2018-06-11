@@ -12,6 +12,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.integer :city_id
       t.integer :state_id
       t.integer :profession_id
+      t.index [:name,:email, :dob], name: "index_users_uniqueness", unique: true
 
       t.timestamps
     end

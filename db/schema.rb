@@ -104,6 +104,7 @@ ActiveRecord::Schema.define(version: 2018_05_31_021809) do
     t.integer "profession_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name", "email", "dob"], name: "index_users_uniqueness", unique: true
   end
 
   add_foreign_key "data_sheets", "admins"

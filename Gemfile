@@ -33,6 +33,9 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 # 
+# Use lobibox notification
+gem 'rails-assets-arboshiki--lobibox', source: 'https://rails-assets.org'
+# 
 gem 'figaro'
 gem 'devise'
 # gem 'rails_admin', github: 'dtcristo/rails_admin', branch: 'active_storage'

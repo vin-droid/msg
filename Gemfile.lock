@@ -19,6 +19,7 @@ GIT
 
 GEM
   remote: https://rubygems.org/
+  remote: https://rails-assets.org/
   specs:
     actioncable (5.2.0)
       actionpack (= 5.2.0)
@@ -186,6 +187,9 @@ GEM
       bundler (>= 1.3.0)
       railties (= 5.2.0)
       sprockets-rails (>= 2.0.0)
+    rails-assets-arboshiki--lobibox (1.2.7)
+      rails-assets-jquery (>= 1.9.1, < 3)
+    rails-assets-jquery (2.2.4)
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
@@ -280,6 +284,7 @@ DEPENDENCIES
   pry
   puma (~> 3.11)
   rails (~> 5.2.0)
+  rails-assets-arboshiki--lobibox!
   rails_admin!
   rails_admin_rollincode
   sass-rails (~> 5.0)

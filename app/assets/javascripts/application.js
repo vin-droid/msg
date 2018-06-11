@@ -11,6 +11,9 @@
 // about supported directives.
 //
 //= require rails-ujs
+//
+//= stub rails_admin/custom/ui.js
+//= stub rails_admin/custom/ra.widgets.coffee
 //= require activestorage
 //= require turbolinks
 //= require_tree .
