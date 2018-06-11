@@ -6,6 +6,8 @@ RailsAdmin.config do |config|
   config.authenticate_with do
     warden.authenticate! scope: :admin
   end
+  config.total_columns_width = 9999999
+  # config.horizontal_scroll_list = true
   config.current_user_method(&:current_admin)
 
   # RailsAdmin.config do |config|
@@ -39,9 +41,7 @@ RailsAdmin.config do |config|
   end
 
   config.model "User" do
-    list do
-      items_per_page 400
-    end
+
   end
 
   ## == Cancan ==
